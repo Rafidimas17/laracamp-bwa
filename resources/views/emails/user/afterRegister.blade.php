@@ -1,9 +1,9 @@
 @component('mail::message')
-    # Welcome!
+    # Welcome
 
     Hi {{ $user->name }}
     <br>
-    Welcome to Laracamp, your account has been created successfully. Now you can choose your best match camp!
+    Welcome to Laracamp, your account has been successfuly created. Now you can choose your favorite camp!
 
     @component('mail::button', ['url' => route('login')])
         Login Here
