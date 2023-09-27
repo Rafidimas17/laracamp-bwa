@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,5 +29,8 @@ Route::get('/success-chekout', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/signin-google', [UserController::class, 'google'])->name('user.login.google');
+Route::get('/auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('user.google.callback');
 
 require __DIR__ . '/auth.php';
