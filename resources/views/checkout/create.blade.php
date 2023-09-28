@@ -19,7 +19,7 @@
                             <div class="item-bootcamp">
                                 <img src="{{ asset('images/item_bootcamp.png') }}" alt="" class="cover">
                                 <h1 class="package">
-                                    GILA BELAJAR
+                                    {{ $camp->title }}
                                 </h1>
                                 <p class="description">
                                     Bootcamp ini akan mengajak Anda untuk belajar penuh mulai dari pengenalan dasar sampai
@@ -29,38 +29,67 @@
                         </div>
                         <div class="col-lg-1 col-12"></div>
                         <div class="col-lg-6 col-12">
-                            <form action="{{ route('success-chekout') }}" class="basic-form">
+                            <form action="{{ route('checkout.store', $camp->id) }}" class="basic-form" method="POST">
+                                @csrf
                                 <div class="mb-4">
                                     <label for="exampleInputEmail1" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
+                                    <input name="name" type="text"
+                                        class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                        value="{{ Auth::user()->name }}" required>
+                                    @if ($errors->has('name'))
+                                        <p class="text-danger">{{ $errors->first('name') }}</p>
+                                    @endif
                                 </div>
                                 <div class="mb-4">
                                     <label for="exampleInputEmail1" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
+                                    <input name="email" type="text" required
+                                        class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                        value="{{ Auth::user()->email }}">
+                                    @if ($errors->has('email'))
+                                        <p class="text-danger">{{ $errors->first('email') }}</p>
+                                    @endif
                                 </div>
                                 <div class="mb-4">
                                     <label for="exampleInputEmail1" class="form-label">Occupation</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1"
+                                    <input name="occupation" type="text" required
+                                        class="form-control {{ $errors->has('occupation') ? 'is-invalid' : '' }}"
+                                        value="{{ old('occupation') ?: Auth::user()->occupation }}" id="exampleInputEmail1"
                                         aria-describedby="emailHelp">
+                                    @if ($errors->has('occupation'))
+                                        <p class="text-danger">{{ $errors->first('occupation') }}</p>
+                                    @endif
                                 </div>
                                 <div class="mb-4">
                                     <label for="exampleInputEmail1" class="form-label">Card Number</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1"
+                                    <input name="card_number" type="number" required
+                                        class="form-control {{ $errors->has('card_number') ? 'is-invalid' : '' }}"
+                                        value="{{ old('card_number') }}" id="exampleInputEmail1"
                                         aria-describedby="emailHelp">
+                                    @if ($errors->has('card_number'))
+                                        <p class="text-danger">{{ $errors->first('card_number') }}</p>
+                                    @endif
                                 </div>
                                 <div class="mb-5">
                                     <div class="row">
                                         <div class="col-lg-6 col-12">
                                             <label for="exampleInputEmail1" class="form-label">Expired</label>
-                                            <input type="text" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp">
+                                            <input name="expired" type="month" required
+                                                class="form-control {{ $errors->has('expired') ? 'is-invalid' : '' }}"
+                                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                                            @if ($errors->has('expired'))
+                                                <p class="text-danger">{{ $errors->first('expired') }}</p>
+                                            @endif
                                         </div>
                                         <div class="col-lg-6 col-12">
                                             <label for="exampleInputEmail1" class="form-label">CVC</label>
-                                            <input type="text" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp">
+                                            <input name="cvc" type="text" required
+                                                class="form-control {{ $errors->has('cvc') ? 'is-invalid' : '' }}"
+                                                maxlength="5" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                            @if ($errors->has('cvc'))
+                                                <p class="text-danger">{{ $errors->first('cvc') }}</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
