@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Checkout;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public function view()
+    public function index()
     {
         $checkout = Checkout::with('Camp')->whereUserId(Auth::id())->get();
-        // return $checkout;
-        return view('dashboard.dashboard', [
+        return view('user.dashboard', [
             'checkout' => $checkout
         ]);
     }
